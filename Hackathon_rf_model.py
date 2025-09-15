@@ -39,9 +39,6 @@ le = LabelEncoder()
 for col in cat_cols:
     X_processed[col] = le.fit_transform(X_processed[col])
 
-# Re-add 'Item_Identifier' and 'Outlet_Identifier' if needed for other purposes, but not for direct model training if they are to be excluded.
-# For this script, we'll proceed with X_processed which excludes them.
-# If you need to keep them for other reasons and simply not encode them, the approach would be slightly different.
 # For now, X_processed is our feature set.
 X = X_processed
 
@@ -110,7 +107,7 @@ test = pd.read_csv(r"C:\Users\canara\Downloads\test_AbJTz2l.csv")  # replace wit
 combined_df = pd.concat([train.drop(columns=['Item_Outlet_Sales']), test], ignore_index=True)
 
 # -------------------------------
-# 1. Data Cleaning (applied to combined_df)
+# 1. Data Cleaning 
 # -------------------------------
 combined_df['Item_Fat_Content'] = combined_df['Item_Fat_Content'].replace({
     'LF': 'Low Fat',
@@ -184,4 +181,5 @@ submission = pd.DataFrame({
 
 submission.to_csv(r"C:\Users\canara\Downloads\submission_rf.csv", index=False)
 print("✅ Final submission file created: submission_rf.csv")
+
 print(submission.head())
